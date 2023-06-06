@@ -1,0 +1,59 @@
+RESTAURANT PROJECT
+
+MODELS 
+
+admin
+owner of restaurant
+costumer
+
+costumer - reservation, view menu
+owner of restaurant - add restaurant, delete reservation, add menu
+admin - can do everything, but not actions that costumer can do
+
+DB
+
+USER 
+	id 
+	first_name 
+	last_name 
+	email 
+	password 
+	role_id (foreign key to role(id))
+	created_at
+	updated_at
+ROLE 
+	id 
+	name (admin, owner, costumer)
+RESTAURANT 
+	id
+	name 
+	owner_id
+	type of restaurant (foreign key to type(id))
+	average check
+	city
+	address 
+	about
+	created_at
+	updated_at
+TYPE OF RESTAURANT
+    id
+    name
+FOOD
+	id
+	name
+	restaurant_id (foreign key to restaurant(id))
+	category_id (foreign key to category(id))
+CATEGORY OF FOOD
+	id
+	name (write by myself)
+RESERVATION 
+	id 
+	costumer_id (foreign key to user(id))
+	restaurant_id (foreign key to restaurant(id))
+	when they come
+	how many people
+	created_at
+	updated_at
+	
+	
+
