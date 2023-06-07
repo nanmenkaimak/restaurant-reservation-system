@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"net/http"
+	"github.com/gin-gonic/gin"
 )
 
-func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("hello"))
+func (m *Repository) Home(ctx *gin.Context) {
+	ctx.Writer.Write([]byte("hello"))
 }

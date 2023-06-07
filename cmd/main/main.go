@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/nanmenkaimak/restaurant-reservation-system/internal/handlers"
 	"github.com/nanmenkaimak/restaurant-reservation-system/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -37,6 +38,11 @@ func main() {
 	}
 
 	db.AutoMigrate(&models.Users{}, &models.Roles{}, &models.Restaurants{}, &models.TypeOfRestaurant{}, &models.Food{}, &models.CategoryOfFood{}, &models.Reservations{})
+
+	flag.Parse()
+
+	repo := handlers.NewRepo(db)
+	handlers.NewHandlers(repo)
 
 	srv := &http.Server{
 		Addr:    portNumber,

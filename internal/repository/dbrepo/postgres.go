@@ -13,9 +13,7 @@ func (m *postgresDBRepo) InsertUser(newUser models.Users) (int, error) {
 		return 0, err
 	}
 	newUser.Password = password
-
 	result := m.DB.Create(&newUser)
-
 	return newUser.ID, result.Error
 }
 
