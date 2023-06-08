@@ -15,10 +15,12 @@ func routes() http.Handler {
 		})
 	})
 
+	router.GET("/", handlers.Repo.Home, Auth())
+
 	user := router.Group("/user")
 	{
 		user.POST("/signup", handlers.Repo.SignUp)
-		user.GET("/", handlers.Repo.Home)
+		user.POST("/login", handlers.Repo.Login)
 	}
 
 	return router
