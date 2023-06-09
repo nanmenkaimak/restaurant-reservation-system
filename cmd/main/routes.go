@@ -26,6 +26,7 @@ func routes() http.Handler {
 	restaurant := router.Group("/restaurant", Auth())
 	{
 		restaurant.GET("/", handlers.Repo.AllRests)
+		restaurant.GET("/:id", handlers.Repo.SingleRest)
 		restaurant.POST("/owner", handlers.Repo.AddRest)
 	}
 

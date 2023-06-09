@@ -8,7 +8,7 @@ import (
 func (m *Repository) AllRests(ctx *gin.Context) {
 	allRests, err := m.DB.GetAllRests()
 	if err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	ctx.JSON(http.StatusOK, allRests)

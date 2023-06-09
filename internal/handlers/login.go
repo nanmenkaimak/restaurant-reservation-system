@@ -11,19 +11,19 @@ func (m *Repository) Login(ctx *gin.Context) {
 	var user models.Users
 
 	if err := ctx.BindJSON(&user); err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	id, _, err := m.DB.Authenticate(user.Email, user.Password)
 	if err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	token, err := JWT.GenerateToken(id)
 	if err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{

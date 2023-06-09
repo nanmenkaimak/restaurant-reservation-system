@@ -14,7 +14,7 @@ func (m *Repository) AddRest(ctx *gin.Context) {
 	newRest.UpdatedAt = time.Now()
 
 	if err := ctx.BindJSON(&newRest); err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -28,7 +28,7 @@ func (m *Repository) AddRest(ctx *gin.Context) {
 
 	owner, err := m.DB.GetUserByID(newRest.OwnerID)
 	if err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -39,7 +39,7 @@ func (m *Repository) AddRest(ctx *gin.Context) {
 
 	err = m.DB.InsertRestaurant(newRest)
 	if err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	ctx.JSON(http.StatusCreated, newRest)

@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/nanmenkaimak/restaurant-reservation-system/internal/forms"
 	"github.com/nanmenkaimak/restaurant-reservation-system/internal/models"
@@ -16,7 +15,7 @@ func (m *Repository) SignUp(ctx *gin.Context) {
 	newUser.UpdatedAt = time.Now()
 
 	if err := ctx.BindJSON(&newUser); err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -26,13 +25,13 @@ func (m *Repository) SignUp(ctx *gin.Context) {
 	form.MinLength(newUser.Password, 8)
 
 	if !form.Valid() {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(errors.New("your values is not valid")))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "your values is not valid"})
 		return
 	}
 
 	_, err := m.DB.InsertUser(newUser)
 	if err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	ctx.JSON(http.StatusCreated, newUser)
