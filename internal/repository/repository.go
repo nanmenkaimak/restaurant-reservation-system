@@ -7,6 +7,7 @@ import (
 
 type DatabaseRepo interface {
 	InsertUser(newUser models.Users) (int, error)
+	GetAllUser() ([]models.Users, error)
 	GetUserByID(id int) (models.Users, error)
 	GetUsersByRole(role int) ([]models.Users, error)
 	UpdateUser(id int, updatedUser models.Users) error
@@ -17,6 +18,7 @@ type DatabaseRepo interface {
 	GetIDOfFoodCategoryByName(name string) (models.CategoryOfFood, error)
 
 	InsertRestaurant(newRestaurant models.Restaurants) error
+	GetAllRests() ([]models.Restaurants, error)
 	GetRestsByOwnerID(ownerID int) ([]models.Restaurants, error)
 	GetRestByID(id int) (models.Restaurants, error)
 	GetRestsByType(typeID int) ([]models.Restaurants, error)

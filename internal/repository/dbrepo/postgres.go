@@ -17,6 +17,12 @@ func (m *postgresDBRepo) InsertUser(newUser models.Users) (int, error) {
 	return newUser.ID, result.Error
 }
 
+func (m *postgresDBRepo) GetAllUser() ([]models.Users, error) {
+	var users []models.Users
+	result := m.DB.Find(&users)
+	return users, result.Error
+}
+
 func (m *postgresDBRepo) GetUserByID(id int) (models.Users, error) {
 	var user models.Users
 	result := m.DB.Where("id = ?", id).Find(&user)
@@ -74,6 +80,12 @@ func (m *postgresDBRepo) GetIDOfFoodCategoryByName(name string) (models.Category
 func (m *postgresDBRepo) InsertRestaurant(newRestaurant models.Restaurants) error {
 	result := m.DB.Create(&newRestaurant)
 	return result.Error
+}
+
+func (m *postgresDBRepo) GetAllRests() ([]models.Restaurants, error) {
+	var restaurants []models.Restaurants
+	result := m.DB.Find(&restaurants)
+	return restaurants, result.Error
 }
 
 func (m *postgresDBRepo) GetRestsByOwnerID(ownerID int) ([]models.Restaurants, error) {

@@ -5,23 +5,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/nanmenkaimak/restaurant-reservation-system/internal/forms"
 	"github.com/nanmenkaimak/restaurant-reservation-system/internal/models"
-	"mime"
 	"net/http"
 	"time"
 )
 
 func (m *Repository) SignUp(ctx *gin.Context) {
-	contentType := ctx.Request.Header.Get("Content-Type")
-	mediaType, _, err := mime.ParseMediaType(contentType)
-	if err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
-		return
-	}
-	if mediaType != "application/json" {
-		ctx.AbortWithError(http.StatusBadRequest, errors.New("expected application/json Content-type"))
-		return
-	}
-
 	var newUser models.Users
 
 	newUser.CreatedAt = time.Now()
@@ -42,7 +30,7 @@ func (m *Repository) SignUp(ctx *gin.Context) {
 		return
 	}
 
-	_, err = m.DB.InsertUser(newUser)
+	_, err := m.DB.InsertUser(newUser)
 	if err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, ctx.Error(err))
 		return

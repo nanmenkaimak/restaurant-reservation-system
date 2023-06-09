@@ -23,7 +23,7 @@ type Restaurants struct {
 	ID           int              `json:"id" gorm:"primaryKey; autoIncrement:1"`
 	Name         string           `json:"name"`
 	OwnerID      int              `json:"owner_id"`
-	TypeID       int              `json:"type"`
+	TypeID       int              `json:"type_id"`
 	Type         TypeOfRestaurant `json:"type"`
 	AverageCheck int              `json:"average_check"`
 	City         string           `json:"city"`
