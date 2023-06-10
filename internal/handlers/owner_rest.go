@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+func (m *Repository) AllOwnerRest(ctx *gin.Context) {
+
+}
+
 func (m *Repository) AddRest(ctx *gin.Context) {
 	var newRest models.Restaurants
 

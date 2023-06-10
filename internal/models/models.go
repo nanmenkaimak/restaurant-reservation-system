@@ -23,6 +23,7 @@ type Restaurants struct {
 	ID           int              `json:"id" gorm:"primaryKey; autoIncrement:1"`
 	Name         string           `json:"name"`
 	OwnerID      int              `json:"owner_id"`
+	Owner        Users            `json:"owner"`
 	TypeID       int              `json:"type_id"`
 	Type         TypeOfRestaurant `json:"type"`
 	AverageCheck int              `json:"average_check"`
@@ -31,6 +32,13 @@ type Restaurants struct {
 	About        string           `json:"about"`
 	CreatedAt    time.Time        `json:"created_at"`
 	UpdatedAt    time.Time        `json:"updated_at"`
+}
+
+type Seats struct {
+	ID           int         `json:"id" gorm:"primaryKey; autoIncrement:1"`
+	RestaurantID int         `json:"restaurant_id"`
+	Restaurant   Restaurants `json:"restaurant"`
+	Capacity     int         `json:"capacity"`
 }
 
 type TypeOfRestaurant struct {
@@ -53,13 +61,13 @@ type CategoryOfFood struct {
 }
 
 type Reservations struct {
-	ID           int         `json:"id" gorm:"primaryKey; autoIncrement:1"`
-	CostumerID   int         `json:"costumer_id"`
-	Costumer     Users       `json:"costumer"`
-	RestaurantID int         `json:"restaurant_id"`
-	Restaurant   Restaurants `json:"restaurant"`
-	ComingTime   time.Time   `json:"coming_time"`
-	NumOfGuests  int         `json:"num_of_guests"`
-	CreatedAt    time.Time   `json:"created_at"`
-	UpdatedAt    time.Time   `json:"updated_at"`
+	ID          int       `json:"id" gorm:"primaryKey; autoIncrement:1"`
+	CostumerID  int       `json:"costumer_id"`
+	Costumer    Users     `json:"costumer"`
+	SeatID      int       `json:"seat_id"`
+	Seat        Seats     `json:"seat"`
+	ComingTime  time.Time `json:"coming_time"`
+	NumOfGuests int       `json:"num_of_guests"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }

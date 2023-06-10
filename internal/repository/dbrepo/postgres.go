@@ -130,6 +130,12 @@ func (m *postgresDBRepo) GetRestsByName(name string) ([]models.Restaurants, erro
 	return restaurants, result.Error
 }
 
+func (m *postgresDBRepo) GetAllRestsByOwner(ownerID int) ([]models.Restaurants, error) {
+	var restaurants []models.Restaurants
+	result := m.DB.Where("owner_id = ?", ownerID).Find(&restaurants)
+	return restaurants, result.Error
+}
+
 func (m *postgresDBRepo) InsertReservation(newReservation models.Reservations) error {
 	result := m.DB.Create(&newReservation)
 	return result.Error
@@ -175,6 +181,24 @@ func (m *postgresDBRepo) GetFoodsByName(name string) ([]models.Food, error) {
 	var foods []models.Food
 	result := m.DB.Where("name = ?", name).Find(&foods)
 	return foods, result.Error
+}
+
+func (m *postgresDBRepo) InsertTable(newTable models.Seats) error {
+	result := m.DB.Create(&newTable)
+	return result.Error
+}
+
+func (m *postgresDBRepo) GetAllTableOfRest(restID int) ([]models.Seats, error) {
+	var tables []models.Seats
+	result := m.DB.Where("restaurant_id = ?", restID).Find(&tables)
+	return tables, result.Error
+}
+
+func (m *postgresDBRepo) GetTableByID(id int) (models.Seats, error) {
+	var table models.Seats
+	result := m.DB.Where("id = ?", id).Find(&table)
+
+	return table, result.Error
 }
 
 func (m *postgresDBRepo) Authenticate(email string, password string) (int, string, error) {

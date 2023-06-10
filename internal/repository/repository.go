@@ -26,6 +26,7 @@ type DatabaseRepo interface {
 	GetRestsByAddress(address string) ([]models.Restaurants, error)
 	GetRestsByAverageCheck(check int) ([]models.Restaurants, error)
 	GetRestsByName(name string) ([]models.Restaurants, error)
+	GetAllRestsByOwner(ownerID int) ([]models.Restaurants, error)
 
 	InsertReservation(newReservation models.Reservations) error
 	GetReservationsByCostumerID(costumerID int) ([]models.Reservations, error)
@@ -35,6 +36,10 @@ type DatabaseRepo interface {
 	GetFoodsByRestID(restID int) ([]models.Food, error)
 	GetFoodsByCategoryID(categoryID int) ([]models.Food, error)
 	GetFoodsByName(name string) ([]models.Food, error)
+
+	InsertTable(newUser models.Seats) error
+	GetAllTableOfRest(restID int) ([]models.Seats, error)
+	GetTableByID(id int) (models.Seats, error)
 
 	Authenticate(email string, password string) (int, string, error)
 }
