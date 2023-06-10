@@ -19,7 +19,6 @@ type DatabaseRepo interface {
 
 	InsertRestaurant(newRestaurant models.Restaurants) error
 	GetAllRests() ([]models.Restaurants, error)
-	GetRestsByOwnerID(ownerID int) ([]models.Restaurants, error)
 	GetRestByID(id int) (models.Restaurants, error)
 	GetRestsByType(typeID int) ([]models.Restaurants, error)
 	GetRestsByCity(city string) ([]models.Restaurants, error)

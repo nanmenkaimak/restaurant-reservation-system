@@ -28,7 +28,7 @@ func (m *Repository) AddTable(ctx *gin.Context) {
 }
 
 func (m *Repository) ShowAllTableOfRest(ctx *gin.Context) {
-	id, _ := strconv.Atoi(ctx.Param("id"))
+	id, _ := strconv.Atoi(ctx.Param("rest_id"))
 
 	tables, err := m.DB.GetAllTableOfRest(id)
 	if err != nil {

@@ -7,13 +7,16 @@ import (
 	"strconv"
 )
 
-func (m *Repository) AllRests(ctx *gin.Context) {
+func (m *Repository) Rests(ctx *gin.Context) {
 	rest_id := ctx.Query("rest_id")
+	city := ctx.Query("city")
 	var rests []models.Restaurants
 	var rest models.Restaurants
 	var err error
-	if rest_id == "" {
+	if rest_id == "" && city == "" {
 		rests, err = m.DB.GetAllRests()
+	} else if city != "" {
+		rests, err = m.DB.GetRestsByCity(city)
 	} else {
 		restID, _ := strconv.Atoi(rest_id)
 		rest, err = m.DB.GetRestByID(restID)

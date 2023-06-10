@@ -8,6 +8,10 @@ import (
 )
 
 func (m *postgresDBRepo) InsertUser(newUser models.Users) (int, error) {
+	err := m.checkSimilarEmail(newUser.Email)
+	if err != nil {
+		return 0, err
+	}
 	password, err := hashPassword(newUser.Password)
 	if err != nil {
 		return 0, err
@@ -88,12 +92,6 @@ func (m *postgresDBRepo) GetAllRests() ([]models.Restaurants, error) {
 	return restaurants, result.Error
 }
 
-func (m *postgresDBRepo) GetRestsByOwnerID(ownerID int) ([]models.Restaurants, error) {
-	var restaurants []models.Restaurants
-	result := m.DB.Where("owner_id = ?", ownerID).First(&restaurants)
-	return restaurants, result.Error
-}
-
 func (m *postgresDBRepo) GetRestByID(id int) (models.Restaurants, error) {
 	var restaurant models.Restaurants
 	result := m.DB.Where("id = ?", id).Find(&restaurant)
@@ -109,6 +107,9 @@ func (m *postgresDBRepo) GetRestsByType(typeID int) ([]models.Restaurants, error
 func (m *postgresDBRepo) GetRestsByCity(city string) ([]models.Restaurants, error) {
 	var restaurants []models.Restaurants
 	result := m.DB.Where("city = ?", city).Find(&restaurants)
+	if len(restaurants) == 0 {
+		return nil, errors.New("in this city there are no restaurants")
+	}
 	return restaurants, result.Error
 }
 
@@ -213,6 +214,16 @@ func (m *postgresDBRepo) Authenticate(email string, password string) (int, strin
 		return 0, "", err
 	}
 	return user.ID, user.Password, nil
+}
+
+func (m *postgresDBRepo) checkSimilarEmail(email string) error {
+	var cnt int64
+	var users []models.Users
+	m.DB.Model(&users).Where("email = ?", email).Count(&cnt)
+	if cnt > 0 {
+		return errors.New("user exists with this email")
+	}
+	return nil
 }
 
 func hashPassword(password string) (string, error) {
