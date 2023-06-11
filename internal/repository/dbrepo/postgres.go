@@ -2,6 +2,7 @@ package dbrepo
 
 import (
 	"errors"
+	"fmt"
 	"github.com/nanmenkaimak/restaurant-reservation-system/internal/models"
 	"golang.org/x/crypto/bcrypt"
 	"time"
@@ -138,6 +139,19 @@ func (m *postgresDBRepo) GetAllRestsByOwner(ownerID int) ([]models.Restaurants, 
 }
 
 func (m *postgresDBRepo) InsertReservation(newReservation models.Reservations) error {
+	var cnt int64
+	var reservation models.Reservations
+	hoursBefore := newReservation.ComingTime.Add(-10 * time.Hour)
+	hoursAfter := newReservation.ComingTime.Add(10 * time.Hour)
+	m.DB.Model(&reservation).Where("coming_time >= ? and coming_time <= ?", hoursBefore, hoursAfter).Count(&cnt)
+	if cnt > 0 {
+		return errors.New("the table is already reserved")
+	}
+
+	seat, _ := m.GetTableByID(newReservation.SeatID)
+	if seat.Capacity < newReservation.NumOfGuests {
+		return errors.New(fmt.Sprintf("table cannot serve more guests than %d", seat.Capacity))
+	}
 	result := m.DB.Create(&newReservation)
 	return result.Error
 }
@@ -148,9 +162,9 @@ func (m *postgresDBRepo) GetReservationsByCostumerID(costumerID int) ([]models.R
 	return reservations, result.Error
 }
 
-func (m *postgresDBRepo) GetReservationsByRestID(restaurantID int) ([]models.Reservations, error) {
+func (m *postgresDBRepo) GetReservationsByTableID(tableID int) ([]models.Reservations, error) {
 	var reservations []models.Reservations
-	result := m.DB.Where("restaurant_id = ?", restaurantID).Find(&reservations)
+	result := m.DB.Where("seat_id = ?", tableID).Find(&reservations)
 	return reservations, result.Error
 }
 

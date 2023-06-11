@@ -26,10 +26,13 @@ func routes() http.Handler {
 	restaurant := router.Group("/restaurant", Auth())
 	{
 		restaurant.GET("", handlers.Repo.Rests)
+		restaurant.GET("/:rest_id", handlers.Repo.SingleRest)
 		restaurant.POST("/new", handlers.Repo.AddRest)
 		restaurant.POST("/:rest_id/table", handlers.Repo.AddTable)
 		restaurant.GET("/:rest_id/table", handlers.Repo.ShowAllTableOfRest)
 		restaurant.GET("/owner/:owner_id", handlers.Repo.AllOwnerRests)
+		restaurant.POST("/reservations/:seat_id", handlers.Repo.ReserveTable)
+		restaurant.GET("/owner/reservations", handlers.Repo.ShowAllReservationsOfRest)
 	}
 
 	return router

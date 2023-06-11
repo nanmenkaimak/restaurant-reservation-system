@@ -8,30 +8,30 @@ import (
 )
 
 func (m *Repository) Rests(ctx *gin.Context) {
-	rest_id := ctx.Query("rest_id")
 	city := ctx.Query("city")
 	var rests []models.Restaurants
-	var rest models.Restaurants
 	var err error
-	if rest_id == "" && city == "" {
+	if city == "" {
 		rests, err = m.DB.GetAllRests()
-	} else if city != "" {
-		rests, err = m.DB.GetRestsByCity(city)
 	} else {
-		restID, _ := strconv.Atoi(rest_id)
-		rest, err = m.DB.GetRestByID(restID)
-		if rest.ID == 0 {
-			ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "The restaurant does not exist"})
-			return
-		}
+		rests, err = m.DB.GetRestsByCity(city)
 	}
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	if len(rests) == 0 {
-		rests = []models.Restaurants{rest}
-	}
+
 	ctx.JSON(http.StatusOK, rests)
+}
+
+func (m *Repository) SingleRest(ctx *gin.Context) {
+	id, _ := strconv.Atoi(ctx.Param("rest_id"))
+
+	table, err := m.DB.GetRestByID(id)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	ctx.JSON(http.StatusOK, table)
 }
