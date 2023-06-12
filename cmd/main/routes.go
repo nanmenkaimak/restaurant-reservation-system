@@ -33,6 +33,8 @@ func routes() http.Handler {
 		restaurant.GET("/owner/:owner_id", handlers.Repo.AllOwnerRests)
 		restaurant.POST("/reservations/:seat_id", handlers.Repo.ReserveTable)
 		restaurant.GET("/owner/reservations", handlers.Repo.ShowAllReservationsOfRest)
+		restaurant.POST("/:rest_id/menu", handlers.Repo.AddFoodToMenu)
+		restaurant.GET("/:rest_id/menu", handlers.Repo.ShowMenuOfRest)
 	}
 
 	return router

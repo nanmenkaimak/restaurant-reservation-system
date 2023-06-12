@@ -8,10 +8,23 @@ import (
 	"strconv"
 )
 
-func (m *Repository) AddTable(ctx *gin.Context) {
-	var newTable models.Seats
+func (m *Repository) ShowMenuOfRest(ctx *gin.Context) {
+	restID, _ := strconv.Atoi(ctx.Param("rest_id"))
 
-	if err := ctx.BindJSON(&newTable); err != nil {
+	menu, err := m.DB.GetFoodsByRestID(restID)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	ctx.JSON(http.StatusOK, menu)
+}
+
+func (m *Repository) AddFoodToMenu(ctx *gin.Context) {
+	restID, _ := strconv.Atoi(ctx.Param("rest_id"))
+
+	var newFood models.Food
+
+	if err := ctx.BindJSON(&newFood); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -21,8 +34,6 @@ func (m *Repository) AddTable(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	restID, _ := strconv.Atoi(ctx.Param("rest_id"))
 
 	rest, err := m.DB.GetRestByID(restID)
 	if err != nil {
@@ -35,23 +46,12 @@ func (m *Repository) AddTable(ctx *gin.Context) {
 		return
 	}
 
-	newTable.RestaurantID = restID
+	newFood.RestaurantID = restID
 
-	err = m.DB.InsertTable(newTable)
+	err = m.DB.InsertFood(newFood)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	ctx.JSON(http.StatusCreated, newTable)
-}
-
-func (m *Repository) ShowAllTableOfRest(ctx *gin.Context) {
-	id, _ := strconv.Atoi(ctx.Param("rest_id"))
-
-	tables, err := m.DB.GetAllTableOfRest(id)
-	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	ctx.JSON(http.StatusOK, tables)
+	ctx.JSON(http.StatusCreated, newFood)
 }

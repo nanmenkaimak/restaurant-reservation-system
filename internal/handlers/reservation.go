@@ -12,7 +12,7 @@ func (m *Repository) ShowAllReservationsOfRest(ctx *gin.Context) {
 	restIDstr := ctx.Query("rest_id")
 	var reservations []models.Reservations
 	var err error
-	ownerID, err := m.checkForOwner(ctx)
+	ownerID, err := m.checkOwner(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -21,6 +21,7 @@ func (m *Repository) ShowAllReservationsOfRest(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": errors.New("restaurant is not defined")})
 		return
 	}
+
 	restID, _ := strconv.Atoi(restIDstr)
 
 	rest, err := m.DB.GetRestByID(restID)
@@ -28,9 +29,8 @@ func (m *Repository) ShowAllReservationsOfRest(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
 	if rest.OwnerID != ownerID {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "it is not your restaurant"})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": errors.New("it is not your restaurant")})
 		return
 	}
 
@@ -78,25 +78,4 @@ func (m *Repository) ReserveTable(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusCreated, newReservation)
-}
-
-func (m *Repository) checkForOwner(ctx *gin.Context) (int, error) {
-	ownerIDstr, ok := ctx.Get("id")
-	if !ok {
-		return 0, errors.New("cannot get ID")
-	}
-
-	ownerID := int(ownerIDstr.(float64))
-
-	owner, err := m.DB.GetUserByID(ownerID)
-	if err != nil {
-		return 0, err
-	}
-
-	if owner.RoleID != 2 {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "you are not owner"})
-		return 0, err
-	}
-
-	return owner.ID, nil
 }

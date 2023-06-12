@@ -32,6 +32,8 @@ type DatabaseRepo interface {
 	GetReservationsByTableID(tableID int) ([]models.Reservations, error)
 	GetReservationsByDate(comingTime time.Time) ([]models.Reservations, error)
 	GetReservationsByNumOfGuests(numGuests int) ([]models.Reservations, error)
+
+	InsertFood(newFood models.Food) error
 	GetFoodsByRestID(restID int) ([]models.Food, error)
 	GetFoodsByCategoryID(categoryID int) ([]models.Food, error)
 	GetFoodsByName(name string) ([]models.Food, error)

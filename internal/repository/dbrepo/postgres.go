@@ -180,6 +180,11 @@ func (m *postgresDBRepo) GetReservationsByNumOfGuests(numGuests int) ([]models.R
 	return reservations, result.Error
 }
 
+func (m *postgresDBRepo) InsertFood(newFood models.Food) error {
+	result := m.DB.Create(&newFood)
+	return result.Error
+}
+
 func (m *postgresDBRepo) GetFoodsByRestID(restID int) ([]models.Food, error) {
 	var foods []models.Food
 	result := m.DB.Where("restaurant_id = ?", restID).Find(&foods)

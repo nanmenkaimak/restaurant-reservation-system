@@ -30,24 +30,13 @@ func (m *Repository) AddRest(ctx *gin.Context) {
 		return
 	}
 
-	ownerID, ok := ctx.Get("id")
-	if !ok {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Cannot get ID"})
-		return
-	}
-
-	newRest.OwnerID = int(ownerID.(float64))
-
-	owner, err := m.DB.GetUserByID(newRest.OwnerID)
+	ownerID, err := m.checkOwner(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if owner.RoleID != 2 {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Only owner can add restaurants"})
-		return
-	}
+	newRest.OwnerID = ownerID
 
 	err = m.DB.InsertRestaurant(newRest)
 	if err != nil {
