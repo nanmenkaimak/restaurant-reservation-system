@@ -143,7 +143,7 @@ func (m *postgresDBRepo) InsertReservation(newReservation models.Reservations) e
 	var reservation models.Reservations
 	hoursBefore := newReservation.ComingTime.Add(-10 * time.Hour)
 	hoursAfter := newReservation.ComingTime.Add(10 * time.Hour)
-	m.DB.Model(&reservation).Where("coming_time >= ? and coming_time <= ?", hoursBefore, hoursAfter).Count(&cnt)
+	m.DB.Model(&reservation).Where("coming_time >= ? and coming_time <= ? and seat_id = ?", hoursBefore, hoursAfter, newReservation.SeatID).Count(&cnt)
 	if cnt > 0 {
 		return errors.New("the table is already reserved")
 	}
