@@ -1,0 +1,536 @@
+basePath: /
+definitions:
+  handlers.LoginParams:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.CategoryOfFood:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.Food:
+    properties:
+      category:
+        $ref: '#/definitions/models.CategoryOfFood'
+      category_id:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+      restaurant:
+        $ref: '#/definitions/models.Restaurants'
+      restaurant_id:
+        type: integer
+    type: object
+  models.Reservations:
+    properties:
+      coming_time:
+        type: string
+      costumer:
+        $ref: '#/definitions/models.Users'
+      costumer_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      num_of_guests:
+        type: integer
+      seat:
+        $ref: '#/definitions/models.Seats'
+      seat_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  models.Restaurants:
+    properties:
+      about:
+        type: string
+      address:
+        type: string
+      average_check:
+        type: integer
+      city:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      owner:
+        $ref: '#/definitions/models.Users'
+      owner_id:
+        type: integer
+      type:
+        $ref: '#/definitions/models.TypeOfRestaurant'
+      type_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  models.Roles:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.Seats:
+    properties:
+      capacity:
+        type: integer
+      id:
+        type: integer
+      restaurant:
+        $ref: '#/definitions/models.Restaurants'
+      restaurant_id:
+        type: integer
+    type: object
+  models.TypeOfRestaurant:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.Users:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      password:
+        type: string
+      role:
+        $ref: '#/definitions/models.Roles'
+      role_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: rest api in golang
+  title: Restaurant Reservation System
+  version: "1.0"
+paths:
+  /restaurant:
+    get:
+      consumes:
+      - application/json
+      description: get all restaurants
+      operationId: get-all-restaurants
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Restaurants'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Get All Restaurants
+      tags:
+      - restaurants
+  /restaurant/{rest_id}:
+    get:
+      consumes:
+      - application/json
+      description: get restaurant by id
+      operationId: get-restaurant-by-id
+      parameters:
+      - description: list info
+        in: body
+        name: input
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Restaurants'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Get Restaurant By Id
+      tags:
+      - restaurants
+  /restaurant/{rest_id}/menu:
+    get:
+      consumes:
+      - application/json
+      description: get menu of restaurants
+      operationId: get-menu-restaurants
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Food'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Get Menu of Restaurants
+      tags:
+      - menu
+    post:
+      consumes:
+      - application/json
+      description: Add Food to Menu
+      operationId: create-food-to-menu
+      parameters:
+      - description: list info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Food'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Food'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Add Food to Menu
+      tags:
+      - owner
+  /restaurant/{rest_id}/table:
+    get:
+      consumes:
+      - application/json
+      description: get all table of restaurants
+      operationId: get-all-table-restaurants
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Seats'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Get All Table of Restaurants
+      tags:
+      - table
+    post:
+      consumes:
+      - application/json
+      description: create Table
+      operationId: create-table
+      parameters:
+      - description: list info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Seats'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Seats'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Create Table
+      tags:
+      - owner
+  /restaurant/new:
+    post:
+      consumes:
+      - application/json
+      description: create Restaurant
+      operationId: create-restaurant
+      parameters:
+      - description: list info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Restaurants'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Restaurants'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Create Restaurant
+      tags:
+      - owner
+  /restaurant/owner/{owner_id}:
+    get:
+      consumes:
+      - application/json
+      description: get all owner restaurants
+      operationId: get-all-owner-restaurants
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Restaurants'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Get All Owner Restaurants
+      tags:
+      - owner
+  /restaurant/owner/reservations:
+    get:
+      consumes:
+      - application/json
+      description: get all reservation of restaurants
+      operationId: get-all-reservation-restaurants
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Reservations'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Get All Reservation of Restaurants
+      tags:
+      - owner
+  /restaurant/reservations/{seat_id}:
+    post:
+      consumes:
+      - application/json
+      description: create Reservation
+      operationId: create-reservation
+      parameters:
+      - description: list info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Reservations'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Reservations'
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Create Reservation
+      tags:
+      - reservation
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: login
+      operationId: login
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.LoginParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: Login
+      tags:
+      - auth
+  /user/signup:
+    post:
+      consumes:
+      - application/json
+      description: create user
+      operationId: create-account
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Users'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+        default:
+          description: ""
+          schema: {}
+      summary: SignUp
+      tags:
+      - auth
+swagger: "2.0"
