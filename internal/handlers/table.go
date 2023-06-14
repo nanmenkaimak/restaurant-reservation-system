@@ -8,6 +8,19 @@ import (
 	"strconv"
 )
 
+// @Summary Create Table
+// @Security ApiKeyAuth
+// @Tags owner
+// @Description create Table
+// @ID create-table
+// @Accept  json
+// @Produce  json
+// @Param input body models.Seats true "list info"
+// @Success 200 {object} models.Seats
+// @Failure 400,404 {object} error
+// @Failure 500 {object} error
+// @Failure default {object} error
+// @Router /restaurant/{rest_id}/table [post]
 func (m *Repository) AddTable(ctx *gin.Context) {
 	var newTable models.Seats
 
@@ -45,6 +58,18 @@ func (m *Repository) AddTable(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, newTable)
 }
 
+// @Summary Get All Table of Restaurants
+// @Security ApiKeyAuth
+// @Tags table
+// @Description get all table of restaurants
+// @ID get-all-table-restaurants
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Seats
+// @Failure 400,404 {object} error
+// @Failure 500 {object} error
+// @Failure default {object} error
+// @Router /restaurant/{rest_id}/table [get]
 func (m *Repository) ShowAllTableOfRest(ctx *gin.Context) {
 	id, _ := strconv.Atoi(ctx.Param("rest_id"))
 

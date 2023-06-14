@@ -8,6 +8,18 @@ import (
 	"time"
 )
 
+// @Summary Get All Owner Restaurants
+// @Security ApiKeyAuth
+// @Tags owner
+// @Description get all owner restaurants
+// @ID get-all-owner-restaurants
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Restaurants
+// @Failure 400,404 {object} error
+// @Failure 500 {object} error
+// @Failure default {object} error
+// @Router /restaurant/owner/{owner_id} [get]
 func (m *Repository) AllOwnerRests(ctx *gin.Context) {
 	ownerID, _ := strconv.Atoi(ctx.Param("owner_id"))
 
@@ -19,6 +31,19 @@ func (m *Repository) AllOwnerRests(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, rests)
 }
 
+// @Summary Create Restaurant
+// @Security ApiKeyAuth
+// @Tags owner
+// @Description create Restaurant
+// @ID create-restaurant
+// @Accept  json
+// @Produce  json
+// @Param input body models.Restaurants true "list info"
+// @Success 200 {object} models.Restaurants
+// @Failure 400,404 {object} error
+// @Failure 500 {object} error
+// @Failure default {object} error
+// @Router /restaurant/new [post]
 func (m *Repository) AddRest(ctx *gin.Context) {
 	var newRest models.Restaurants
 

@@ -7,6 +7,18 @@ import (
 	"strconv"
 )
 
+// @Summary Get All Restaurants
+// @Security ApiKeyAuth
+// @Tags restaurants
+// @Description get all restaurants
+// @ID get-all-restaurants
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Restaurants
+// @Failure 400,404 {object} error
+// @Failure 500 {object} error
+// @Failure default {object} error
+// @Router /restaurant [get]
 func (m *Repository) Rests(ctx *gin.Context) {
 	city := ctx.Query("city")
 	var rests []models.Restaurants
@@ -25,6 +37,19 @@ func (m *Repository) Rests(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, rests)
 }
 
+// @Summary Get Restaurant By Id
+// @Security ApiKeyAuth
+// @Tags restaurants
+// @Description get restaurant by id
+// @ID get-restaurant-by-id
+// @Accept  json
+// @Produce  json
+// @Param input body int true "list info"
+// @Success 200 {object} models.Restaurants
+// @Failure 400,404 {object} error
+// @Failure 500 {object} error
+// @Failure default {object} error
+// @Router /restaurant/{rest_id} [get]
 func (m *Repository) SingleRest(ctx *gin.Context) {
 	id, _ := strconv.Atoi(ctx.Param("rest_id"))
 

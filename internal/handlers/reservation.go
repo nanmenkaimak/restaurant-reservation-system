@@ -8,6 +8,18 @@ import (
 	"strconv"
 )
 
+// @Summary Get All Reservation of Restaurants
+// @Security ApiKeyAuth
+// @Tags owner
+// @Description get all reservation of restaurants
+// @ID get-all-reservation-restaurants
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Reservations
+// @Failure 400,404 {object} error
+// @Failure 500 {object} error
+// @Failure default {object} error
+// @Router /restaurant/owner/reservations [get]
 func (m *Repository) ShowAllReservationsOfRest(ctx *gin.Context) {
 	restIDstr := ctx.Query("rest_id")
 	var reservations []models.Reservations
@@ -51,6 +63,19 @@ func (m *Repository) ShowAllReservationsOfRest(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, reservations)
 }
 
+// @Summary Create Reservation
+// @Security ApiKeyAuth
+// @Tags reservation
+// @Description create Reservation
+// @ID create-reservation
+// @Accept  json
+// @Produce  json
+// @Param input body models.Reservations true "list info"
+// @Success 200 {object} models.Reservations
+// @Failure 400,404 {object} error
+// @Failure 500 {object} error
+// @Failure default {object} error
+// @Router /restaurant/reservations/{seat_id} [post]
 func (m *Repository) ReserveTable(ctx *gin.Context) {
 	seatID, _ := strconv.Atoi(ctx.Param("seat_id"))
 

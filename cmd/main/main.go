@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	_ "github.com/nanmenkaimak/restaurant-reservation-system/docs"
 	"github.com/nanmenkaimak/restaurant-reservation-system/internal/handlers"
 	"github.com/nanmenkaimak/restaurant-reservation-system/internal/models"
 	"gorm.io/driver/postgres"
@@ -13,12 +14,23 @@ import (
 
 const portNumber = ":8080"
 
+// @title Restaurant Reservation System
+// @version 1.0
+// @description rest api in golang
+
+// @host localhost:8080
+// @BasePath /
+
+// securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 	content, err := os.ReadFile("password.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
-	dbHost := flag.String("dbhost", "db", "Database host")
+	dbHost := flag.String("dbhost", "localhost", "Database host")
 	dbName := flag.String("dbname", "restaurant-reservation-system", "Database name")
 	dbUser := flag.String("dbuser", "postgres", "Database user")
 	dbPass := flag.String("dbpass", string(content), "Database password")
