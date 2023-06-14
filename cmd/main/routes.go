@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func routes() http.Handler {
+func routes() {
 	router := gin.Default()
 
 	router.NoRoute(func(ctx *gin.Context) { // check for 404
@@ -37,5 +37,5 @@ func routes() http.Handler {
 		restaurant.GET("/:rest_id/menu", handlers.Repo.ShowMenuOfRest)
 	}
 
-	return router
+	_ = router.Run(portNumber)
 }

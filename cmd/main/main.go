@@ -8,7 +8,6 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
-	"net/http"
 	"os"
 )
 
@@ -19,7 +18,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	dbHost := flag.String("dbhost", "localhost", "Database host")
+	dbHost := flag.String("dbhost", "db", "Database host")
 	dbName := flag.String("dbname", "restaurant-reservation-system", "Database name")
 	dbUser := flag.String("dbuser", "postgres", "Database user")
 	dbPass := flag.String("dbpass", string(content), "Database password")
@@ -44,11 +43,5 @@ func main() {
 	repo := handlers.NewRepo(db)
 	handlers.NewHandlers(repo)
 
-	srv := &http.Server{
-		Addr:    portNumber,
-		Handler: routes(),
-	}
-
-	err = srv.ListenAndServe()
-	log.Fatal(err)
+	routes()
 }

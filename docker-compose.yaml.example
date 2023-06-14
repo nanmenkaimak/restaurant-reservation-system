@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  restaurant-reservation-system:
+    build: ./
+    command: ./restaurant-reservation-system
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - DB_PASSWORD=
+
+  db:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=
+    ports:
+      - '5432:5432'
+volumes:
+  db:
+    driver: local
