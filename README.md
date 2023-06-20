@@ -13,7 +13,9 @@ jwt - token
 ```
 
 ### Installation
-git clone https://github.com/nanmenkaimak/restaurant-reservation-system <br>
+```
+git clone https://github.com/nanmenkaimak/restaurant-reservation-system 
+```
 configure database <img src="./images/db_conf.png"> 
 change values given variables in ``main.go`` file <br>
 for running project
