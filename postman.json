@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "c788f909-8a11-4eab-ac29-ee553b60e3ab",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26913270"
+	},
+	"item": [
+		{
+			"name": "Sign Up",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\" : \"New\",\n    \"last_name\" : \"User\",\n    \"email\" : \"new@gmail.com\",\n    \"password\" : \"qwertyuiop\",\n    \"role_id\" : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/user/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzIjoxNjg2NTI4NjE4LCJpZCI6NCwiaXNzdWVkIjoxNjg2NDg1NDE4fQ.XqRYd7CjN3AAiFHxvNd4yJzkFJRTaxSGqL2XoaZv2tY"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"new@gmail.com\",\n    \"password\" : \"qwertyuiop\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/user/login",
+				"description": "Login that will generate JWT token"
+			},
+			"response": []
+		},
+		{
+			"name": "View All Restaurant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzIjoxNjg2NjMyMTE0LCJpZCI6NSwiaXNzdWVkIjoxNjg2NTg4OTE0fQ.rDRsnPaz5itNd2xhdI5H61ZVxxaZ2K6A1yd1CXObW1Q"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/restaurant?city=Uralsk",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurant"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Uralsk"
+						}
+					]
+				},
+				"description": "Can get all Restaurants, also get by city name"
+			},
+			"response": []
+		},
+		{
+			"name": "Add new Restaurant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzIjoxNjg2NjMyMTE0LCJpZCI6NSwiaXNzdWVkIjoxNjg2NTg4OTE0fQ.rDRsnPaz5itNd2xhdI5H61ZVxxaZ2K6A1yd1CXObW1Q"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Zheka+\",\n    \"type_id\" : 2,\n    \"average_check\" : 2000,\n    \"city\" : \"Uralsk\",\n    \"address\" : \"monkeyuly\",\n    \"about\" : \"Donerka\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/restaurant/new",
+				"description": "Only owners can add new restaurant"
+			},
+			"response": []
+		},
+		{
+			"name": "View Single Restaurant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzIjoxNjg2NjMyMTE0LCJpZCI6NSwiaXNzdWVkIjoxNjg2NTg4OTE0fQ.rDRsnPaz5itNd2xhdI5H61ZVxxaZ2K6A1yd1CXObW1Q"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/restaurant/1",
+				"description": "Get information about one restaurant"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Table",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzIjoxNjg2NTI5MDk5LCJpZCI6MSwiaXNzdWVkIjoxNjg2NDg1ODk5fQ.vMlmeJs4CRmxDSiZL8z7bB-S4M0uAi-VyH4M0u46Wcw"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"capacity\" : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/restaurant/5/table",
+				"description": "Only owner of restaurant can do it"
+			},
+			"response": []
+		},
+		{
+			"name": "View all Restaurant of Owner",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzIjoxNjg2NjMyMTE0LCJpZCI6NSwiaXNzdWVkIjoxNjg2NTg4OTE0fQ.rDRsnPaz5itNd2xhdI5H61ZVxxaZ2K6A1yd1CXObW1Q"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/restaurant/owner/4"
+			},
+			"response": []
+		},
+		{
+			"name": "Make Reservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzIjoxNjg2NjMyMTE0LCJpZCI6NSwiaXNzdWVkIjoxNjg2NTg4OTE0fQ.rDRsnPaz5itNd2xhdI5H61ZVxxaZ2K6A1yd1CXObW1Q"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"coming_time\" : \"2023-06-15T0:00:00Z\",\n    \"num_of_guests\" : 4\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/restaurant/reservations/7",
+				"description": "Customer can make reservation"
+			},
+			"response": []
+		},
+		{
+			"name": "View all reservations of restaurant",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzIjoxNjg2NjMyMTE0LCJpZCI6NSwiaXNzdWVkIjoxNjg2NTg4OTE0fQ.rDRsnPaz5itNd2xhdI5H61ZVxxaZ2K6A1yd1CXObW1Q"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/restaurant/owner/reservations?rest_id=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurant",
+						"owner",
+						"reservations"
+					],
+					"query": [
+						{
+							"key": "rest_id",
+							"value": "2"
+						}
+					]
+				},
+				"description": "only owner of restaurant can do this"
+			},
+			"response": []
+		},
+		{
+			"name": "Add food to menu",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzIjoxNjg2NjMyMTE0LCJpZCI6NSwiaXNzdWVkIjoxNjg2NTg4OTE0fQ.rDRsnPaz5itNd2xhdI5H61ZVxxaZ2K6A1yd1CXObW1Q"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Sorpa\",\n    \"category_id\" : 7\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/restaurant/1/menu",
+				"description": "only owner of restaurant can do this"
+			},
+			"response": []
+		}
+	]
+}

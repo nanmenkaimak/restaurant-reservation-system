@@ -10,6 +10,7 @@ import (
 
 // @Summary Get All Reservation of Restaurants
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags owner
 // @Description get all reservation of restaurants
 // @ID get-all-reservation-restaurants
@@ -65,6 +66,7 @@ func (m *Repository) ShowAllReservationsOfRest(ctx *gin.Context) {
 
 // @Summary Create Reservation
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags reservation
 // @Description create Reservation
 // @ID create-reservation

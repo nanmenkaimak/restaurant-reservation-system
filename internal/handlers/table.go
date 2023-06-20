@@ -10,6 +10,7 @@ import (
 
 // @Summary Create Table
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags owner
 // @Description create Table
 // @ID create-table
@@ -60,6 +61,7 @@ func (m *Repository) AddTable(ctx *gin.Context) {
 
 // @Summary Get All Table of Restaurants
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags table
 // @Description get all table of restaurants
 // @ID get-all-table-restaurants

@@ -136,6 +136,12 @@ paths:
       - application/json
       description: get all restaurants
       operationId: get-all-restaurants
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -167,6 +173,11 @@ paths:
       description: get restaurant by id
       operationId: get-restaurant-by-id
       parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: list info
         in: body
         name: input
@@ -203,6 +214,12 @@ paths:
       - application/json
       description: get menu of restaurants
       operationId: get-menu-restaurants
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -233,6 +250,11 @@ paths:
       description: Add Food to Menu
       operationId: create-food-to-menu
       parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: list info
         in: body
         name: input
@@ -269,6 +291,12 @@ paths:
       - application/json
       description: get all table of restaurants
       operationId: get-all-table-restaurants
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -299,6 +327,11 @@ paths:
       description: create Table
       operationId: create-table
       parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: list info
         in: body
         name: input
@@ -336,6 +369,11 @@ paths:
       description: create Restaurant
       operationId: create-restaurant
       parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: list info
         in: body
         name: input
@@ -372,6 +410,12 @@ paths:
       - application/json
       description: get all owner restaurants
       operationId: get-all-owner-restaurants
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -402,6 +446,12 @@ paths:
       - application/json
       description: get all reservation of restaurants
       operationId: get-all-reservation-restaurants
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -433,6 +483,11 @@ paths:
       description: create Reservation
       operationId: create-reservation
       parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: list info
         in: body
         name: input

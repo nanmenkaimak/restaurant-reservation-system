@@ -10,6 +10,7 @@ import (
 
 // @Summary Get Menu of Restaurants
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags menu
 // @Description get menu of restaurants
 // @ID get-menu-restaurants
@@ -33,6 +34,7 @@ func (m *Repository) ShowMenuOfRest(ctx *gin.Context) {
 
 // @Summary Add Food to Menu
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags owner
 // @Description Add Food to Menu
 // @ID create-food-to-menu

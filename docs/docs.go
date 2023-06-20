@@ -35,6 +35,15 @@ const docTemplate = `{
                 ],
                 "summary": "Get All Restaurants",
                 "operationId": "get-all-restaurants",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -81,6 +90,13 @@ const docTemplate = `{
                 "summary": "Create Restaurant",
                 "operationId": "create-restaurant",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "list info",
                         "name": "input",
@@ -136,6 +152,15 @@ const docTemplate = `{
                 ],
                 "summary": "Get All Reservation of Restaurants",
                 "operationId": "get-all-reservation-restaurants",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -181,6 +206,15 @@ const docTemplate = `{
                 ],
                 "summary": "Get All Owner Restaurants",
                 "operationId": "get-all-owner-restaurants",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -227,6 +261,13 @@ const docTemplate = `{
                 "summary": "Create Reservation",
                 "operationId": "create-reservation",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "list info",
                         "name": "input",
@@ -284,6 +325,13 @@ const docTemplate = `{
                 "operationId": "get-restaurant-by-id",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "list info",
                         "name": "input",
                         "in": "body",
@@ -338,6 +386,15 @@ const docTemplate = `{
                 ],
                 "summary": "Get Menu of Restaurants",
                 "operationId": "get-menu-restaurants",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -382,6 +439,13 @@ const docTemplate = `{
                 "summary": "Add Food to Menu",
                 "operationId": "create-food-to-menu",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "list info",
                         "name": "input",
@@ -437,6 +501,15 @@ const docTemplate = `{
                 ],
                 "summary": "Get All Table of Restaurants",
                 "operationId": "get-all-table-restaurants",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -481,6 +554,13 @@ const docTemplate = `{
                 "summary": "Create Table",
                 "operationId": "create-table",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "list info",
                         "name": "input",

@@ -10,6 +10,7 @@ import (
 
 // @Summary Get All Owner Restaurants
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags owner
 // @Description get all owner restaurants
 // @ID get-all-owner-restaurants
@@ -33,6 +34,7 @@ func (m *Repository) AllOwnerRests(ctx *gin.Context) {
 
 // @Summary Create Restaurant
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags owner
 // @Description create Restaurant
 // @ID create-restaurant

@@ -9,6 +9,7 @@ import (
 
 // @Summary Get All Restaurants
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags restaurants
 // @Description get all restaurants
 // @ID get-all-restaurants
@@ -39,6 +40,7 @@ func (m *Repository) Rests(ctx *gin.Context) {
 
 // @Summary Get Restaurant By Id
 // @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Tags restaurants
 // @Description get restaurant by id
 // @ID get-restaurant-by-id

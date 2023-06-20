@@ -30,7 +30,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	dbHost := flag.String("dbhost", "localhost", "Database host")
+	dbHost := flag.String("dbhost", "db", "Database host")
 	dbName := flag.String("dbname", "restaurant-reservation-system", "Database name")
 	dbUser := flag.String("dbuser", "postgres", "Database user")
 	dbPass := flag.String("dbpass", string(content), "Database password")
